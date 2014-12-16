@@ -16,6 +16,8 @@
 		var roller;
 		var platforms;
 
+		var platform_move_speed = 0.3;
+
 		function preload(){
 			game.load.image('ball', 'assets/ball.png');
 			game.load.image('block', 'assets/block.png');
@@ -39,7 +41,7 @@
 			//Create a bunch of platforms
 			for(var i = 0; i < 5; ++i){
 				var plat = platforms.create(i*65, game.world.height-64, 'block');
-				plat.body.imovable = true;
+				plat.body.immovable = true;
 			}
 
 			//Create the roller
@@ -56,6 +58,8 @@
 		function update(){
 			//Check to see if the roller has hit any of the platforms
 			game.physics.arcade.collide(roller, platforms);
+
+			platforms.position.y -= platform_move_speed;
 
 		}
 	</script>
