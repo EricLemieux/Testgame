@@ -10,5 +10,47 @@
 </head>
 
 <body>
+	<script type="text/javascript">
+		var game = new Phaser.Game(320, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+		var roller;
+
+		var platforms;
+
+		function preload(){
+			game.load.image('ball', 'assets/ball.png');
+			game.load.image('block', 'assets/block.png');
+
+		}
+
+		function create(){
+			//activate physics
+			game.physics.startSystem(Phaser.Physics.ARCADE);
+
+			//Create group for the platforms and add physics to it
+			platforms = game.add.group();
+			platforms.enableBody = true;
+
+			//Create a bunch of platforms
+			for(var i = 0; i < 5; ++i){
+				//TODO
+			}
+
+			//Create the roller
+			roller = game.add.sprite(32, 0, 'ball');
+			game.physics.arcade.enable(roller);
+			
+			//Physics properties
+	        roller.body.bounce.y = 0.2;
+	        roller.body.gravity.y = 300;
+	        roller.body.collideWorldBounds = true;
+
+		}
+
+		function update(){
+
+
+		}
+	</script>
 </body>
 </html>
