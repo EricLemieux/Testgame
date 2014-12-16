@@ -14,7 +14,6 @@
 		var game = new Phaser.Game(320, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 		var roller;
-
 		var platforms;
 
 		function preload(){
@@ -24,6 +23,12 @@
 		}
 
 		function create(){
+			//Scale the Game
+			this.scale.pageAlignHorizontally = true;
+	        this.scale.pageAlignVertically = true;
+	        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	        game.scale.refresh();
+
 			//activate physics
 			game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -33,7 +38,8 @@
 
 			//Create a bunch of platforms
 			for(var i = 0; i < 5; ++i){
-				//TODO
+				var plat = platforms.create(i*65, game.world.height-64, 'block');
+				plat.body.imovable = true;
 			}
 
 			//Create the roller
@@ -48,7 +54,8 @@
 		}
 
 		function update(){
-
+			//Check to see if the roller has hit any of the platforms
+			game.physics.arcade.collide(roller, platforms);
 
 		}
 	</script>
