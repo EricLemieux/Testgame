@@ -6,6 +6,8 @@
 
 	<script src="phaser.min.js"></script>
 
+	<script src="block.js"></script>
+
 	<meta name="Test Game" content="user-scalable=0, initial-scale=1, minimum-scale=1 maximum-scale=1, width=device-width, minimal-ui=1">
 </head>
 
@@ -16,7 +18,16 @@
 		var roller;
 		var platforms;
 
+		var blocks;
+
+		var cursors;
+
 		var platform_move_speed = 0.3;
+
+		var ROLL_SPEED = 300;
+		var ROLL_STOP_RANGE = 50;
+
+		var BOARD_WIDTH = 7;
 
 		function preload(){
 			game.load.image('ball', 'assets/ball.png');
@@ -39,13 +50,18 @@
 			platforms.enableBody = true;
 
 			//Create a bunch of platforms
-			for(var i = 0; i < 5; ++i){
-				var plat = platforms.create(i*65, game.world.height-64, 'block');
-				plat.body.immovable = true;
+			for(var i = 0; i < BOARD_WIDTH; ++i){
+				var line
+				for(var j = 0; j < 5; ++j){
+					var b = new Block(TYPE.RED, platforms, i, j, 'block');
+					line += b;
+				}
+				blocks += line;
 			}
 
 			//Create the roller
 			roller = game.add.sprite(32, 0, 'ball');
+			roller.scale.setTo(0.5, 0.5);
 			game.physics.arcade.enable(roller);
 			
 			//Physics properties
@@ -53,14 +69,38 @@
 	        roller.body.gravity.y = 300;
 	        roller.body.collideWorldBounds = true;
 
+	        game.input.addMoveCallback(moveBlock, this);
 		}
 
 		function update(){
 			//Check to see if the roller has hit any of the platforms
 			game.physics.arcade.collide(roller, platforms);
 
+			//Move the platforms upwards
 			platforms.position.y -= platform_move_speed;
 
+			//Keyboard input
+			cursors = game.input.keyboard.createCursorKeys();
+
+			var roll_right = cursors.right.isDown;
+			var roll_left = cursors.left.isDown;
+
+	        if(roll_right){
+				roller.body.velocity.x = ROLL_SPEED;
+	        }else if(roll_left){
+	        	roller.body.velocity.x = -ROLL_SPEED;
+	        }else{
+	        	if(roller.body.velocity.x > ROLL_STOP_RANGE && roller.body.velocity.x < -ROLL_STOP_RANGE){
+	        		roller.body.velocity.x *= 0.3;
+	        	}
+	        }
+
+		}
+
+		function moveBlock(pointer, x, y, fromClick){
+			if(pointer.isDown){
+				var pointerX = pointer.position.x
+			}
 		}
 	</script>
 </body>
