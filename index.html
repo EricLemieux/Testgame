@@ -7,6 +7,7 @@
 	<script src="phaser.min.js"></script>
 
 	<script src="block.js"></script>
+	<script src="board.js"></script>
 
 	<meta name="Test Game" content="user-scalable=0, initial-scale=1, minimum-scale=1 maximum-scale=1, width=device-width, minimal-ui=1">
 </head>
@@ -18,7 +19,7 @@
 		var roller;
 		var platforms;
 
-		var blocks;
+		var blocks = [[]];
 
 		var cursors;
 
@@ -50,14 +51,10 @@
 			platforms.enableBody = true;
 
 			//Create a bunch of platforms
-			for(var i = 0; i < BOARD_WIDTH; ++i){
-				var line
-				for(var j = 0; j < 5; ++j){
-					var b = new Block(TYPE.RED, platforms, i, j, 'block');
-					line += b;
-				}
-				blocks += line;
-			}
+			CreateBlockChunk(blocks, 5);
+
+			var b = new Block(platforms, 0, 0, 'block');
+			console.log(b.debugInfo());
 
 			//Create the roller
 			roller = game.add.sprite(32, 0, 'ball');
@@ -69,7 +66,7 @@
 	        roller.body.gravity.y = 300;
 	        roller.body.collideWorldBounds = true;
 
-	        game.input.addMoveCallback(moveBlock, this);
+	        //game.input.addMoveCallback(moveBlock, this);
 		}
 
 		function update(){
@@ -77,7 +74,7 @@
 			game.physics.arcade.collide(roller, platforms);
 
 			//Move the platforms upwards
-			platforms.position.y -= platform_move_speed;
+			platforms.y -= platform_move_speed;
 
 			//Keyboard input
 			cursors = game.input.keyboard.createCursorKeys();
@@ -95,13 +92,14 @@
 	        	}
 	        }
 
+	        CheckForEnoughBlocks();
 		}
 
-		function moveBlock(pointer, x, y, fromClick){
+		/*function moveBlock(pointer, x, y, fromClick){
 			if(pointer.isDown){
 				var pointerX = pointer.position.x
 			}
-		}
+		}*/
 	</script>
 </body>
 </html>

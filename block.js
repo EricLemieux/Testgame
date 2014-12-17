@@ -1,7 +1,10 @@
 //Block class
 
+var TYPE_COUNT = 3;
 var TYPE = {
-	RED:0
+	RED:0,
+	BLUE:1,
+	GREEN:2
 };
 
 var BLOCK_STARTING_SIZE = 64.0;
@@ -11,8 +14,12 @@ function GetBlockPosition(indexX, indexY){
 	return [indexX * BLOCK_WIDTH, 480 + indexY * BLOCK_WIDTH];
 }
 
-function Block(type, group, indexX,indexY, texture){
-	this.type = type;
+function GetRandomBlockType(){
+	return TYPE[Math.random()*TYPE_COUNT];
+}
+
+function Block(group, indexX,indexY, texture){
+	this.type = GetRandomBlockType();
 
 	var blockPos = GetBlockPosition(indexX, indexY);
 
@@ -20,7 +27,18 @@ function Block(type, group, indexX,indexY, texture){
 	this.sprite.scale.setTo(BLOCK_WIDTH/BLOCK_STARTING_SIZE, BLOCK_WIDTH/BLOCK_STARTING_SIZE);
 	this.sprite.body.immovable = true;
 
+	this.someBool = false;
+
+	this.CheckIfOnScreen = CheckIfBlockOnScreen;
+
 	this.debugInfo = function(){
 		return this.type + ' block';
-	}	
+	};
+}
+
+function CheckIfBlockOnScreen(){
+	if(this.sprite.body.position.y < 450){
+			return true;
+		}
+		return false;
 }
