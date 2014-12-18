@@ -50,11 +50,16 @@
 			platforms = game.add.group();
 			platforms.enableBody = true;
 
-			//Create a bunch of platforms
-			CreateBlockChunk(blocks, 5);
+			//Set up the blocks array
+			for(var i = 0; i < BOARD_WIDTH; ++i){
+				var someArr = [];
+				blocks.push(someArr);
+			}
+			console.log(BOARD_WIDTH);
+			console.log(blocks);
 
-			var b = new Block(platforms, 0, 0, 'block');
-			console.log(b.debugInfo());
+			//Create a bunch of platforms
+			CreateBlockChunk(blocks, 3);
 
 			//Create the roller
 			roller = game.add.sprite(32, 0, 'ball');
