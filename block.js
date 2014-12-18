@@ -33,12 +33,12 @@ function Block(group, posX,posY, texture){
 }
 
 function CheckIfBlockOnScreen(){
-	if(this.sprite.body.position.y < 450){
+	if(this.sprite.body.position.y < 500){
 			return true;
 		}
 		return false;
 }
 
 function GetBlockPosition(){
-	return this.sprite.body.position;
+	return this.sprite.position;
 }
