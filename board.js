@@ -11,9 +11,9 @@ function CreateBlockChunk(blocks, height){
 				posY = 480;
 			}
 
-			console.log(posY);
+			var type = GetRandomBlockType();
 
-			var b = new Block(platforms, i * BLOCK_WIDTH, posY, 'block');
+			var b = new Block(platforms, i * BLOCK_WIDTH, posY, type);
 			blocks[i].push(b);
 		}
 	}

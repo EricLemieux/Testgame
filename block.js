@@ -3,21 +3,23 @@
 var TYPE_COUNT = 3;
 var TYPE = {
 	RED:0,
-	BLUE:1,
-	GREEN:2
+	GREEN:1,
+	BLUE:2
 };
 
 var BLOCK_STARTING_SIZE = 64.0;
 var BLOCK_WIDTH = 320.0/7;
 
 function GetRandomBlockType(){
-	return TYPE[Math.random()*TYPE_COUNT];
+	return TYPE.RED + Math.floor(Math.random()*TYPE_COUNT);
 }
 
-function Block(group, posX,posY, texture){
-	this.type = GetRandomBlockType();
+function Block(group, posX,posY, type){
+	//this.type = GetRandomBlockType();
 
-	this.sprite = group.create(posX, posY, texture);
+	var tex = "block" + type;
+
+	this.sprite = group.create(posX, posY, tex);
 	this.sprite.scale.setTo(BLOCK_WIDTH/BLOCK_STARTING_SIZE, BLOCK_WIDTH/BLOCK_STARTING_SIZE);
 	this.sprite.body.immovable = true;
 
