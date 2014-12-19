@@ -17,6 +17,8 @@ function GetRandomBlockType(){
 function Block(group, posX,posY, type){
 	//this.type = GetRandomBlockType();
 
+	this.type = type;
+
 	var tex = "block" + type;
 
 	this.sprite = group.create(posX, posY, tex);
