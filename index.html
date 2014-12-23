@@ -8,6 +8,7 @@
 
 	<script src="block.js"></script>
 	<script src="board.js"></script>
+	<script src="input.js"></script>
 
 	<meta name="Test Game" content="user-scalable=0, initial-scale=1, minimum-scale=1 maximum-scale=1, width=device-width, minimal-ui=1">
 </head>
@@ -97,14 +98,14 @@
 	        	}
 	        }
 
+	        //Check for the users input on the tiles
+	        if(game.input.activePointer.isDown){
+	        	var pos = GetRelativeMousePos(blocks, true);
+	        	console.log(pos[0] + ", " + pos[1]);
+	        }
+
 	        CheckForEnoughBlocks();
 		}
-
-		/*function moveBlock(pointer, x, y, fromClick){
-			if(pointer.isDown){
-				var pointerX = pointer.position.x
-			}
-		}*/
 	</script>
 </body>
 </html>
